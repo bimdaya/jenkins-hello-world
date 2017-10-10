@@ -1,5 +1,10 @@
 FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ADD .fetchr.sample-0.0.1-SNAPSHOT.war app.war
-ENV JAVA_OPTS=""
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+RUN apk add maven --update-cache --repository http://dl-4.alpinelinux.org/alpine/edge/community/ --allow-untrusted \
+	&& rm -rf /var/cache/apk/*
+RUN apk add --update git
+ENV MAVEN_HOME /usr/share/java/maven-3
+ENV PATH $PATH:$MAVEN_HOME/bin
+RUN git clone https://github.com/talal-shobaita/hello-world.git 
+WORKDIR "/hello-world" 
+#EXPOSE 8080
+ENTRYPOINT mvn package && mvn spring-boot:run
