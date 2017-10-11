@@ -1,10 +1,12 @@
-FROM openjdk:8-jdk-alpine
-RUN apk add maven --update-cache --repository http://dl-4.alpinelinux.org/alpine/edge/community/ --allow-untrusted \
-	&& rm -rf /var/cache/apk/*
-RUN apk add --update git
-ENV MAVEN_HOME /usr/share/java/maven-3
-ENV PATH $PATH:$MAVEN_HOME/bin
-RUN git clone https://github.com/talal-shobaita/hello-world.git 
-WORKDIR "/hello-world" 
-#EXPOSE 8080
-ENTRYPOINT mvn package && mvn spring-boot:run
+FROM tomcat:8.0.38
+
+# Place the code version inside the webapps directory
+ARG PACKAGE_VERSION
+RUN echo "${PACKAGE_VERSION}" >> /usr/local/tomcat/webapps/version.txt
+
+COPY project.war /usr/local/tomcat/webapps/project.war
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["catalina.sh", "run"]
+
