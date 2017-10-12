@@ -7,7 +7,7 @@ node {
     checkout scm
 
     // save our docker build context before we switch branches
-    sh "cp -r ./.docker/build tmp-docker-build-context"
+   // sh "cp -r ./.docker/build tmp-docker-build-context"
     
     // checkout input branch 
     sh "git checkout ${caller.env.BRANCH_NAME}"
