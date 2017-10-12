@@ -1,5 +1,5 @@
 
-de {
+node {
   def branchVersion = ""
 
   stage ('Checkout') {
