@@ -10,7 +10,7 @@ node {
    // sh "cp -r ./.docker/build tmp-docker-build-context"
     
     // checkout input branch 
-    sh "git checkout ${caller.env.BRANCH_NAME}"
+    sh "git checkout master"
   }
 
   stage ('Determine Branch Version') {
