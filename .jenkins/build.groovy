@@ -19,7 +19,7 @@ node {
 
     // determine version in pom.xml
     branchVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
-    echo "$pomVersion"
+    echo "$branchVersion"
     // compute proper branch SNAPSHOT version
     //pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "") 
     //branchVersion = env.BRANCH_NAME
