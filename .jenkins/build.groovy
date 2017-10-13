@@ -15,7 +15,7 @@ node {
 
   stage ('Determine Branch Version') {
     // add maven to path
-    env.PATH = "/usr/local/bin"
+    withEnv(["/usr/local/bin"]){
 
     // determine version in pom.xml
     def pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
@@ -29,6 +29,7 @@ node {
 
     // set branch SNAPSHOT version in pom.xml
     sh "mvn versions:set -DnewVersion=${branchVersion}"
+    }
   }
 
   stage ('Java Build') {
