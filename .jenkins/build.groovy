@@ -45,8 +45,8 @@ node {
     sh "ls"
 
     // Build and push image with Jenkins' docker-plugin
-    withDockerServer([uri: "tcp://0.0.0.0:4243"]) {
-      withDockerRegistry([credentialsId: '35a1f568-4a8e-4a2c-b415-728763bd8538', url: "tcp://0.0.0.0:4243/"]) {
+    withDockerServer([uri: ""]) {
+      withDockerRegistry([credentialsId: '35a1f568-4a8e-4a2c-b415-728763bd8538', url: "https://0.0.0.0:4243/"]) {
         // we give the image the same version as the .war package
         def image = docker.build("bud93411/jenkins-hello-world:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} ./.docker/")
         image.push()
