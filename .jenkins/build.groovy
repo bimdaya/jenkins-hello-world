@@ -23,7 +23,7 @@ node {
     // compute proper branch SNAPSHOT version
     //pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "") 
     branchVersion = env.BRANCH_NAME
-      echo "$BRANCH_NAME"
+      echo "$branchVersion"
     branchVersion = branchVersion.replaceAll(/origin\//, "") 
     branchVersion = branchVersion.replaceAll(/\W/, "-")
     branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
