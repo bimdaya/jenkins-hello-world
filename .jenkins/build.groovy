@@ -15,7 +15,7 @@ node {
 
   stage ('Determine Branch Version') {
     // add maven to path
-    withEnv("MAVEN_HOME=/usr/local/bin"){
+    withEnv(["MAVEN_HOME=/usr/local/bin"]){
 
     // determine version in pom.xml
     def pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
