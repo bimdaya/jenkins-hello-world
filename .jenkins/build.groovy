@@ -40,7 +40,7 @@ node {
   
   stage ('Docker Build') {
     // prepare docker build context
-    sh "cp target/us.fetchr.sample-${branchVersion}.war ./tmp-docker-build-context"
+    //sh "cp target/us.fetchr.sample-${branchVersion}.war ./tmp-docker-build-context"
     
     sh "ls"
 
@@ -48,7 +48,7 @@ node {
     withDockerServer([uri: "tcp://0.0.0.0:4243"]) {
       withDockerRegistry([credentialsId: '35a1f568-4a8e-4a2c-b415-728763bd8538', url: "https://0.0.0.0:4243/"]) {
         // we give the image the same version as the .war package
-        def image = docker.build("bud93411/jenkins-hello-world:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} ./tmp-docker-build-context/")
+        def image = docker.build("bud93411/jenkins-hello-world:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} .")
         image.push()
       }   
     }
