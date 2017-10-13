@@ -18,15 +18,15 @@ node {
     withEnv(["MAVEN_HOME=/usr/local/bin"]){
 
     // determine version in pom.xml
-    def pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
+    def branchVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
     echo "$pomVersion"
     // compute proper branch SNAPSHOT version
     //pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "") 
-    branchVersion = env.BRANCH_NAME
-      echo "$branchVersion"
-    branchVersion = branchVersion.replaceAll(/origin\//, "") 
-    branchVersion = branchVersion.replaceAll(/\W/, "-")
-    branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
+    //branchVersion = env.BRANCH_NAME
+     // echo "$branchVersion"
+    //branchVersion = branchVersion.replaceAll(/origin\//, "") 
+   // branchVersion = branchVersion.replaceAll(/\W/, "-")
+   // branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
 
     // set branch SNAPSHOT version in pom.xml
     sh "mvn versions:set -DnewVersion=${branchVersion}"
