@@ -29,7 +29,7 @@ node {
    // branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
 
     // set branch SNAPSHOT version in pom.xml
-    sh "mvn versions:set -DnewVersion=${branchVersion}"
+    sh "mvn versions:set -DnewVersion=${branchVersion}-SNAPSHOT"
     }
   }
 
