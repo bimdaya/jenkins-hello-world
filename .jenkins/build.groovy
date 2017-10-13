@@ -39,13 +39,13 @@ node {
   }
   
   stage ('Docker Build') {
-    sh "ls target"
+    sh "mkdir ./tmp-docker-build-context"
     // prepare docker build context
     sh "cp target/us.fetchr.sample-${branchVersion}.war ./tmp-docker-build-context"
 
     // Build and push image with Jenkins' docker-plugin
     withDockerServer([uri: "tcp://0.0.0.0:4243"]) {
-      withDockerRegistry([credentialsId: 'YnVkOTM0MTE6ITQzTXlTZWxm', url: "https://0.0.0.0:4243/"]) {
+      withDockerRegistry([credentialsId: '	5aad0c62-754e-449c-ae95-62b9f203539f', url: "https://0.0.0.0:4243/"]) {
         // we give the image the same version as the .war package
         def image = docker.build("bud93411/jenkins-hello-world:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} ./tmp-docker-build-context")
         image.push()
