@@ -39,7 +39,6 @@ node {
   }
   
   stage ('Docker Build') {
-    sh "mkdir ./tmp-docker-build-context"
     // prepare docker build context
     sh "cp target/us.fetchr.sample-${branchVersion}.war ./tmp-docker-build-context"
 
