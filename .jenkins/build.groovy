@@ -41,6 +41,8 @@ node {
   stage ('Docker Build') {
     // prepare docker build context
     sh "cp target/us.fetchr.sample-${branchVersion}.war ./tmp-docker-build-context"
+    
+    sh "ll"
 
     // Build and push image with Jenkins' docker-plugin
     withDockerServer([uri: "tcp://0.0.0.0:4243"]) {
